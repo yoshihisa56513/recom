@@ -44,7 +44,7 @@ def sum(h)
 end
 
 #内積計算
-def inner_product(*hash1,*hash2)
+def inner_product(hash1,hash2)
 
 	hash1.each do |key1, value1|
 		hash2.each do |key2, value2| 
@@ -68,7 +68,7 @@ $nm = Natto::MeCab.new
 
 
 #urlArrayからwordHash抽出
-def wh(*uA)
+def wh(uA)
 	uA.each do |url|
 
 		doc = Nokogiri::HTML(open(url)) do |config|
@@ -91,7 +91,7 @@ def wh(*uA)
 end
 
 #wordHash→categoryHash→interestVector
-def ch(*w)
+def ch(w)
 
 	w.each do |key, value|
 		category(key)
@@ -109,17 +109,17 @@ def ch(*w)
 
 end
 
-$wH1 = wh(*$urlArray1)
-$iV1 = ch(*$wH1)
+$wH1 = wh($urlArray1)
+$iV1 = ch($wH1)
 
 $urlArray2.each do |u|
 
 
-	$wH2 = wh(*u)
+	$wH2 = wh(u)
 	
-	$iV2 = ch(*$wH2)
+	$iV2 = ch($wH2)
 
-	$score[u] = inner_product(*$iV1,*$iV2)
+	$score[u] = inner_product($iV1,$iV2)
 
 	#puts "#{u} => score:#{$score}"
 
