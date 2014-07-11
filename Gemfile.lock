@@ -1,0 +1,28 @@
+GIT
+  remote: git://github.com/mono0x/extractcontent.git
+  revision: 220ed055e8f8e22b2fb085da593881c3ec9bba12
+  specs:
+    extractcontent (0.0.1)
+
+GEM
+  specs:
+    ffi (1.9.3)
+    httparty (0.13.1)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
+    json (1.8.1)
+    mini_portile (0.5.3)
+    multi_xml (0.5.5)
+    natto (0.9.6)
+      ffi (>= 1.9.0)
+    nokogiri (1.6.1)
+      mini_portile (~> 0.5.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  extractcontent!
+  httparty
+  natto
+  nokogiri
