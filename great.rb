@@ -7,6 +7,7 @@ require 'open-uri'
 require 'uri'
 
 $wordHash = {}
+$wordHash2 = {}
 $categoryHash = {}
 $interestVector = {}
 $score = {}
@@ -44,13 +45,16 @@ def sum(h)
 end
 
 #内積計算
+$naiseki = 0
+
 def inner_product(hash1,hash2)
+	
 
 	hash1.each do |key1, value1|
 		hash2.each do |key2, value2| 
 
 			if key1 == key2
-				naiseki += hash1[key1] * hash2[key2]
+				$naiseki = $naiseki + hash1[key1] * hash2[key2]
 				
 			end
 			
@@ -58,7 +62,7 @@ def inner_product(hash1,hash2)
 
 	end
 
-	return naiseki
+	return $naiseki
 
 end
 
@@ -90,6 +94,28 @@ def wh(uA)
 
 end
 
+def wA(url)
+	
+
+		doc = Nokogiri::HTML(open(url)) do |config|
+  			config.noblanks
+		end
+
+		doc.search("script").each do |script|
+  			script.content = "" ##scriptタグの中身を空にする
+		end
+
+		doc.css('body').each do |elm|
+  			text = elm.content.gsub(/(\t|\s|\n|\r|\f|\v)/,"")
+  			$nm.parse(text) do |n|
+   			 	$wordHash2[n.surface] ? $wordHash2[n.surface] += 1 : $wordHash2[n.surface] = 1 if n.feature.match("名詞")
+  			end
+		end
+		return $wordHash2
+	
+
+end
+
 #wordHash→categoryHash→interestVector
 def ch(w)
 
@@ -115,7 +141,7 @@ $iV1 = ch($wH1)
 $urlArray2.each do |u|
 
 
-	$wH2 = wh(u)
+	$wH2 = wA(u)
 	
 	$iV2 = ch($wH2)
 

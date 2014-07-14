@@ -1,5 +1,5 @@
 testhash1 = {"red" => 1, "blue" => 5, "green" => 5}
-testhash2 = {"red" => 1, "blue" => 3, "green" => 6}
+testhash2 = {"red" => 1, "blue" => 3, "green" => 6, "pink" => 9}
 $naiseki = 0
 
 def inner_product(hash1,hash2)
@@ -22,4 +22,4 @@ def inner_product(hash1,hash2)
 end
 
 
-puts inner_product(testhash1,testhash1)
+puts inner_product(testhash1,testhash2)
