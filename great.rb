@@ -13,12 +13,26 @@ $interestVector = {}
 $score = {}
 $urlArray1 = []
 $urlArray2 = []
-naiseki = 0
 
 
-$urlArray1 = ["http://blog.gogotanaka.me/entry/2014/07/03/free_fee_is_more_than_600000", "http://liskul.com/wm_bpsychology28-3342", "http://qiita.com/oggata/items/5de43d71692d1abcff7c"]
 
-$urlArray2 = ["http://ja.wikipedia.org/wiki/%E4%BA%BA%E6%96%87%E7%A7%91%E5%AD%A6", "http://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A%E7%A7%91%E5%AD%A6", "http://ja.wikipedia.org/wiki/%E8%87%AA%E7%84%B6%E7%A7%91%E5%AD%A6"]
+$urlArray1 = ["http://gigazine.net/news/20140714-memory-saving-devices/", "http://prs.is/zu89HkjK", "http://museum.ipsj.or.jp/pioneer/aiso.html", "http://jp.techcrunch.com/2014/07/12/20140711apple-opens-up-with-a-new-blog-about-swift-its-new-programming-language/", "http://t.co/fgFpjxK52p"]
+
+#$urlArray2 = ["http://ja.wikipedia.org/wiki/%E4%BA%BA%E6%96%87%E7%A7%91%E5%AD%A6", "http://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A%E7%A7%91%E5%AD%A6", "http://ja.wikipedia.org/wiki/%E8%87%AA%E7%84%B6%E7%A7%91%E5%AD%A6"]
+
+url = "http://ja.wikipedia.org/w/api.php?format=xml&action=query&list=random&rnnamespace=0&rnlimit=10"
+
+doc = REXML::Document.new(open(url))
+
+doc.elements.each('api/query/random/page/') do |element|
+  		
+  			c = element.attributes["title"]
+  			url_escape = URI.escape("http://ja.wikipedia.org/wiki/#{c}")
+  			$urlArray2.push(url_escape)
+
+
+ 		
+end
 
 def category(word)
 
@@ -136,6 +150,7 @@ def ch(w)
 end
 
 $wH1 = wh($urlArray1)
+
 $iV1 = ch($wH1)
 
 $urlArray2.each do |u|
@@ -151,7 +166,7 @@ $urlArray2.each do |u|
 
 end
 
-puts $score.sort {|(k1, v1), (k2, v2)| v2 <=> v1 }
+puts $score.sort {|(k1, v1), (k2, v2)| v2 <=> v1 }[0...3]
 
 
 
